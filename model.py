@@ -17,10 +17,10 @@ class Igra:
     def napacne_crke(self): 
         return [crka for crka in self.crke if crka not in self.geslo]
 
-    def pravilne_crke(self, geslo, crke): 
+    def pravilne_crke(self): 
         return [crka for crka in self.crke if crka in self.geslo]
 
-    def stevilo_napak(self, geslo, crke): 
+    def stevilo_napak(self): 
         return len(self.napacne_crke())
 
     def poraz(self): 
