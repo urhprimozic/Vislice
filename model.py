@@ -6,6 +6,7 @@ PRAVILNA_CRKA = '+'
 PONOVLJENA_CRKA = 'o'
 NAPACNA_CRKA = '-'
 
+ZACETEK = 'S'
 ZMAGA = 'W'
 PORAZ = 'X'
 
@@ -67,3 +68,24 @@ for beseda in open('besede.txt', encoding='utf-8'):
 def nova_igra(): 
     beseda = random.choice(bazen_besed)
     return Igra(beseda)
+
+class Vislice: 
+    def __init__(self): 
+        self.igre = {}
+
+    def prost_id_igre(self): 
+        if len(self.igre) == 0: 
+            return 0 #tu lahko vrnemo karkoli
+        else: 
+            return max(self.igre.keys()) + 1
+
+    def nova_igra(self): 
+        id_igre = self.prost_id_igre()
+        igra = nova_igra() #ker smo napisali brez self, smo klicali funkcijo, drugače pa bi metodo v istem razredu
+        self.igre[id_igre] = (igra, ZACETEK) #ustvarili novo igro v začetnem stanju
+        return id_igre
+
+    def ugibaj(self, id_igre, crka): 
+        igra, _ = self.igre[id_igre]#v slovarju poiščemo igro ki jo igramo, podčrtaj je spremenljivka ki je ne rabimo(tukaj stanje)
+        stanje = igra.ugibaj(crka)
+        self.igre[id_igre] = (igra, stanje)
